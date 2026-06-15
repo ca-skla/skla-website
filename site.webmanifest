@@ -1,0 +1,12 @@
+{
+  "name": "S. K. Lahoti Associates — Chartered Accountants",
+  "short_name": "SKLA",
+  "description": "Hyderabad Chartered Accountant firm since 1989 — audit, tax, GST, FEMA/FDI, NRI and advisory services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a2540",
+  "icons": [
+    { "src": "/assets/img/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
