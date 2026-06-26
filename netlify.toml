@@ -6,7 +6,6 @@
   command = ""
 
 # --- Redirects from old WordPress clean URLs to new .html pages ---
-# Preserves SEO from the previous site. 301 = permanent.
 [[redirects]]
   from = "/about-us/"
   to = "/about.html"
@@ -19,9 +18,16 @@
   status = 301
   force = true
 
+# Clientele has been replaced by the Industries page (same content).
 [[redirects]]
   from = "/clientele/"
-  to = "/clientele.html"
+  to = "/industries.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/clientele.html"
+  to = "/industries.html"
   status = 301
   force = true
 
