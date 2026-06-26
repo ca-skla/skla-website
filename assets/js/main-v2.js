@@ -57,6 +57,63 @@
     });
   });
 
+  // FAQ accordion (insights article pages)
+  document.querySelectorAll(".faq-q").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var item = btn.closest(".faq-item");
+      var ans = item.querySelector(".faq-a");
+      if (item.classList.contains("open")) {
+        item.classList.remove("open");
+        ans.style.maxHeight = null;
+      } else {
+        item.classList.add("open");
+        ans.style.maxHeight = ans.scrollHeight + "px";
+      }
+    });
+  });
+
+  // Insights audience filter (insights index page)
+  var filterPills = document.querySelectorAll(".filter-pill");
+  if (filterPills.length) {
+    filterPills.forEach(function (pill) {
+      pill.addEventListener("click", function () {
+        var f = pill.getAttribute("data-filter");
+        filterPills.forEach(function (p) { p.classList.remove("active"); });
+        pill.classList.add("active");
+        document.querySelectorAll(".post-card").forEach(function (card) {
+          var aud = card.getAttribute("data-audience") || "";
+          var show = f === "all" || aud.split(" ").indexOf(f) !== -1;
+          card.classList.toggle("hidden", !show);
+        });
+      });
+    });
+  }
+
+  // Animated counters (if any [data-count] present)
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && "IntersectionObserver" in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var target = parseFloat(el.getAttribute("data-count"));
+        var suffix = el.getAttribute("data-suffix") || "";
+        var dur = 1400, start = null;
+        function tick(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var val = Math.floor((0.5 - Math.cos(p * Math.PI) / 2) * target);
+          el.textContent = val + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (c) { cio.observe(c); });
+  }
+
   // Contact form — validate, honeypot screen, deliver via backend
   var form = document.querySelector("#contactForm");
   if (form) {
