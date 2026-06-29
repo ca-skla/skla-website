@@ -1,0 +1,25 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+.vscode/
+.idea/
+
+# Logs / temp
+*.log
+*.tmp
+
+# OneDrive / FUSE sync artifacts
+.fuse_hidden*
+
+# Non-shippable working files (kept locally, not deployed)
+_test_big.txt
+_preview_*.html
+skla-theme.zip
+wp-build/
+SKLA Website Redesign/
+CONTENT-STRATEGY.md
+INSIGHTS-BRIEFS.md
+SKLA-Website-Pending-Items.xlsx
+website-build-prompt.md
