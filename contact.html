@@ -106,12 +106,12 @@
           <div class="form-success">Thanks &mdash; we&rsquo;ve got your request and will be in touch shortly.</div>
           <div class="form-error" role="alert"></div>
           <!-- Delivery: posts to FormSubmit, which emails enquiries to skla@skla.in.
-               One-time setup: the first submission triggers a confirmation email to
-               skla@skla.in; click the activation link once and all future enquiries arrive.
+               The action uses FormSubmit's random alias (activated 2026) instead of the
+               bare email, so scrapers can't harvest the address from the page source.
                To switch to another backend (e.g. Web3Forms), change the form "action" below
                and, for Web3Forms, replace the _subject/_template/_captcha/_honey fields with
                <input type="hidden" name="access_key" value="YOUR-KEY"> (the JS works unchanged). -->
-          <form id="contactForm" action="https://formsubmit.co/ajax/skla@skla.in" method="POST" novalidate>
+          <form id="contactForm" action="https://formsubmit.co/ajax/4318224dbf6b8a8ecc845c46862b2b48" method="POST" novalidate>
             <div class="form-row">
               <div class="field"><label for="name">Full name *</label><input type="text" id="name" name="name" required placeholder="Your name"></div>
               <div class="field"><label for="email">Email *</label><input type="email" id="email" name="email" required placeholder="you@example.com"></div>
