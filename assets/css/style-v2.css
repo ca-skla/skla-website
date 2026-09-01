@@ -395,10 +395,14 @@ section { padding: 92px 0; }
     flex-direction: column; align-items: stretch; gap: 0;
     background: #fff; border-bottom: 1px solid var(--line);
     padding: 12px var(--gut) 24px;
-    transform: translateY(-120%); transition: transform var(--t);
+    /* hidden state must clear its own height PLUS the 76px top inset, or its
+       bottom edge pokes out over the header (was translateY(-120%), which cut
+       the logo/brand on phones); visibility stops paint + taps when closed */
+    transform: translateY(calc(-100% - 90px)); visibility: hidden;
+    transition: transform var(--t), visibility var(--t);
     box-shadow: var(--shadow); max-height: calc(100vh - 76px); overflow-y: auto;
   }
-  .nav-links.open { transform: translateY(0); }
+  .nav-links.open { transform: translateY(0); visibility: visible; }
   .nav-links a { padding: 14px 6px; border-bottom: 1px solid var(--line-2); border-radius: 0; }
   .nav-links a.active::after { display: none; }
   .nav-toggle { display: flex; }
