@@ -146,22 +146,23 @@ section { padding: 92px 0; }
   box-shadow: var(--shadow-sm);
 }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; }
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .brand .logo-img { height: 40px; width: auto; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-text strong { font-family: var(--ff-head); font-weight: 600; font-size: 1.06rem; color: var(--ink); letter-spacing: -.01em; }
-.brand-text small { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--slate-2); margin-top: 2px; }
+.brand-text strong { font-family: var(--ff-head); font-weight: 600; font-size: 1.06rem; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand-text small { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--slate-2); margin-top: 2px; white-space: nowrap; }
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a {
   font-size: .9rem; font-weight: 500; color: var(--slate);
-  padding: 9px 13px; border-radius: var(--r);
+  padding: 9px 11px; border-radius: var(--r);
   transition: var(--t); position: relative;
+  white-space: nowrap;
 }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a.active { color: var(--ink); font-weight: 600; }
 .nav-links a.active::after {
-  content: ""; position: absolute; left: 13px; right: 13px; bottom: 2px;
+  content: ""; position: absolute; left: 11px; right: 11px; bottom: 2px;
   height: 2px; background: var(--gold); border-radius: 2px;
 }
 .nav-cta { display: flex; align-items: center; gap: 14px; }
@@ -383,13 +384,9 @@ section { padding: 92px 0; }
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 940px) {
-  section { padding: 68px 0; }
-  .split, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .split.reverse .split-media { order: 0; }
-  .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); }
-  .sector-grid { grid-template-columns: repeat(2,1fr); }
-
+/* The nav collapses to the hamburger earlier than the rest of the layout:
+   below ~1100px the full brand + 8 links + CTA no longer fit on one 76px row. */
+@media (max-width: 1100px) {
   .nav-links {
     position: fixed; inset: 76px 0 auto 0;
     flex-direction: column; align-items: stretch; gap: 0;
@@ -407,6 +404,13 @@ section { padding: 92px 0; }
   .nav-links a.active::after { display: none; }
   .nav-toggle { display: flex; }
   .nav-cta .btn-primary { display: none; }
+}
+@media (max-width: 940px) {
+  section { padding: 68px 0; }
+  .split, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .split.reverse .split-media { order: 0; }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); }
+  .sector-grid { grid-template-columns: repeat(2,1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 @media (max-width: 560px) {
