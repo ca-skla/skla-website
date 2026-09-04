@@ -1,27 +1,26 @@
-# S. K. Lahoti Associates — Website
+# S K Lahoti Associates — Website
 
-Static marketing site for SKLA, Chartered Accountants (Hyderabad, since 1989).
+Static marketing site for SKLA, Chartered Accountants (Hyderabad, since 1989). Live at https://www.skla.in.
 
 ## Preview
-Open `index.html` in any browser. No build step or server required.
-(For the contact-page Google map and web fonts you need an internet connection.)
+Open `index.html` in any browser. No build step or server required (web fonts and the contact-page map need an
+internet connection).
 
 ## Pages
-- `index.html` — Home
-- `about.html` — About
-- `services.html` — Services (6 pillars)
-- `team.html` — Partners & team
-- `contact.html` — Contact + map
-- `404.html` — Not found
+`index.html` Home · `about.html` · `services.html` (6 pillars) · `industries.html` · `team.html` · `careers.html` ·
+`contact.html` · `insights.html` (Resources index) + `insights-*.html` (articles) · `404.html`
 
 ## Assets
-- `assets/css/style.css` — all styles (theme via CSS variables in `:root`)
-- `assets/js/main.js` — interactions
-- `assets/img/` — logo, favicon, OG image
+`assets/css/style-v2.css` — all styles (theme via CSS variables in `:root`) · `assets/js/main-v2.js` — nav,
+scroll reveal, insights filter, FAQ, form · `assets/img/` — CA India logo, favicons, OG image, team photos
 
 ## Deploy
-Upload the whole folder to any static host (Netlify, GitHub Pages, Cloudflare Pages,
-or traditional shared hosting). `index.html` is the entry point. Update absolute URLs
-in the SEO/JSON-LD tags if the domain differs from https://www.skla.in.
+`main` deploys automatically to Netlify (`netlify.toml`: `publish = "."`, redirects from the old WordPress URLs,
+forced 404 for `/_pipeline/*`, `/CLAUDE.md` and `/README.md`). Nothing lands on the live site without a merge.
 
-See `CLAUDE.md` for full project context.
+## Insights pipeline
+`_pipeline/` holds the runbook, backlog, facts register and lint scripts used by two cloud routines that draft a
+new article every fortnight and re-verify existing ones monthly, each as a pull request for partner review.
+Start at `_pipeline/RUNBOOK.md`. Lint an article with `bash _pipeline/bin/check-article.sh <slug>`.
+
+See `CLAUDE.md` for the full project brief and conventions.

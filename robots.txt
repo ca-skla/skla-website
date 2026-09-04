@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /_pipeline/
+Disallow: /*.md$
 
 # Sitemap
 Sitemap: https://www.skla.in/sitemap.xml

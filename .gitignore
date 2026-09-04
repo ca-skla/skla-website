@@ -19,7 +19,11 @@ _preview_*.html
 skla-theme.zip
 wp-build/
 SKLA Website Redesign/
-CONTENT-STRATEGY.md
-INSIGHTS-BRIEFS.md
 SKLA-Website-Pending-Items.xlsx
 website-build-prompt.md
+
+# Never publish (live only in the OneDrive folder)
+Backups/
+partner Info/
+*.zip
+ziXO8jNN
