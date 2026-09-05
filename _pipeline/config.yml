@@ -7,7 +7,7 @@ paused: false            # true = both routines print "STATUS: PAUSED" and stop 
 repo: ca-skla/skla-website
 default_branch: main
 site_url: https://www.skla.in
-netlify_site_name: ""    # Netlify > Site configuration > Site details > Site name (e.g. skla-in); enables preview URLs
+netlify_site_name: "skla-associates"    # Netlify > Site configuration > Site details > Site name (e.g. skla-in); enables preview URLs
 
 reviewer_name: "CA. Sunil Kumar Lahoti"
 reviewer_initials: "SL"
