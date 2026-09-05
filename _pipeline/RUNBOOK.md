@@ -284,6 +284,15 @@ it is not bot-blocked the way `curl` is from a desktop. Three rules that follow:
   failures per run, then stop constructing URLs altogether.
 - **robots.txt.** `ROBOTS_DISALLOWED` usually means a query string (`?p_l_back_url=…`); search for the clean URL
   and fetch that. If the clean URL is refused too, the page is unreachable this run — next rung.
+- **Index pages that do not render.** `WebFetch` sees only navigation on the CBDT lists at
+  incometaxindia.gov.in `/notifications` and `/circulars` (the lists load by script). Discover CBDT instruments
+  through the e-filing portal's Latest Updates page, `WebSearch` on instrument-number patterns
+  (`"Notification No. 1xx/2026"`, `"Circular No. x/2026"`) and the aggregators, then fetch the instrument's own
+  page or PDF on incometaxindia.gov.in from the search result. MCA document links
+  (`mca.gov.in/bin/dms/getdocument?…`) return 403 to the fetcher: an MCA circular can be confirmed only through
+  PIB, the Gazette or the reviewer — it goes to the Watchlist or to a ⚠ row, never into prose as fact.
+- **Tooling.** The cloud sandbox has `python3` (handy for JSON-escaping a PR body or regex edits) as well as
+  `perl`; the desktop has `perl` only. The lint scripts stay bash + perl so both work.
 - **Verbatim text.** `WebFetch` summarises unless told not to and caps quotations at about 125 characters. Ask
   it to "print the main content as raw text, character for character, no paraphrase" for statutory text, and
   for register excerpts ask for "short verbatim excerpts under 125 characters, in quotation marks". A FACTS

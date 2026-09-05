@@ -1,7 +1,7 @@
 # SKLA insights pipeline — runtime configuration (read by both cloud routines at start).
 # Edit on GitHub (web editor is fine). This file is the kill switch and the dry-run flag.
 
-mode: dry-run            # dry-run | live   (dry-run: push to dryrun/<branch>, open no PR, send no email)
+mode: live                # dry-run | live   (dry-run: push to dryrun/<branch>, open no PR, send no email)
 paused: false            # true = both routines print "STATUS: PAUSED" and stop immediately
 
 repo: ca-skla/skla-website
