@@ -275,9 +275,10 @@ rungs below are dead there and `WebFetch` is the only way to read a source. `Web
 incometaxindia.gov.in (section pages `/w/section-…`, `/documents/…/*.pdf`), rbi.org.in and the other portals —
 it is not bot-blocked the way `curl` is from a desktop. Three rules that follow:
 - **Provenance.** `WebFetch` fetches without asking only a URL that already appeared in a `WebSearch` result or
-  in the routine prompt. A URL typed from memory, built by pattern (`…/section-131-93`) or copied out of a repo
-  file raises a permission prompt that nobody answers: the run stalls five minutes and gets
-  `PROVENANCE_REQUIRED`. So: surface every URL through `WebSearch` first (`site:incometaxindia.gov.in "section
+  in the routine prompt. A URL typed from memory, built by pattern (`…/section-131-93`), copied out of a repo
+  file, or taken from a page that `WebFetch` returned (a PDF link on a tracker site, say) raises a permission
+  prompt that nobody answers: the run stalls five minutes and gets `PROVENANCE_REQUIRED` (all four cases were
+  observed on 5 Sep 2026). So: surface every URL through `WebSearch` first (`site:incometaxindia.gov.in "section
   131" "Foreign Assets"`, `site:egazette.gov.in "G.S.R. 732(E)"`, or the URL string itself) and fetch it exactly
   as the result shows it. On `PROVENANCE_REQUIRED` never retry the same URL — search for it. Budget: two such
   failures per run, then stop constructing URLs altogether.
