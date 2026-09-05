@@ -121,12 +121,13 @@ fi
 
 # --- 9. facts register ---------------------------------------------------
 if [ "$FILE" != "insights-article-template.html" ]; then
+  # columns (awk -F'|'): $2 id · $13 status · $14 used_in
   for id in $(grep -o 'data-fact="F-[0-9]*"' "$FILE" | sed 's/data-fact="//;s/"$//' | sort -u); do
     grep -qE "^\| $id \|" "$PIPE/FACTS.md" || fail "data-fact $id has no row in FACTS.md"
-    grep -E "^\| $id \|" "$PIPE/FACTS.md" | grep -q "$FILE" || fail "FACTS.md row $id does not list $FILE in used_in"
+    grep -E "^\| $id \|" "$PIPE/FACTS.md" | awk -F'|' -v f="$FILE" 'index($14, f) > 0 { found = 1 } END { exit found ? 0 : 1 }' || fail "FACTS.md row $id does not list $FILE in used_in"
   done
-  # every CURRENT row that lists this file must have a marker in the file
-  MISSM=$(grep -E '^\| F-[0-9]+ \|' "$PIPE/FACTS.md" | grep "$FILE" | grep '| current |' | sed 's/^| \(F-[0-9]*\) |.*/\1/' | while read -r id; do grep -q "data-fact=\"$id\"" "$FILE" || echo "$id"; done)
+  # every CURRENT row whose used_in lists this file must have a marker in the file
+  MISSM=$(grep -E '^\| F-[0-9]+ \|' "$PIPE/FACTS.md" | awk -F'|' -v f="$FILE" '{ s = $13; gsub(/ /, "", s); if (s == "current" && index($14, f) > 0) { id = $2; gsub(/ /, "", id); print id } }' | while read -r id; do grep -q "data-fact=\"$id\"" "$FILE" || echo "$id"; done)
   [ -z "$MISSM" ] && ok "facts markers consistent with FACTS.md" || fail "current FACTS rows without a data-fact marker in the file: $(echo "$MISSM" | tr '\n' ' ')"
   if grep -q 'class="article-refs"' "$FILE"; then ok "References block present"; else
     if [ "$DM" \> "2026-09-01" ]; then fail "References block missing (required for articles modified after 2026-09-01)"; else warn "References block missing (legacy article; add on re-verification)"; fi
@@ -134,7 +135,7 @@ if [ "$FILE" != "insights-article-template.html" ]; then
 fi
 
 # --- 10. length / read time ----------------------------------------------
-WORDS=$(printf '%s' "$ARTICLE" | perl -0777 -pe 's/<script.*?<\/script>//sg; s/<[^>]+>/ /g; s/&[a-z#0-9]+;/ /g' | wc -w)
+WORDS=$(printf '%s' "$ARTICLE" | perl -0777 -pe 's/<section class="article-refs">.*?<\/section>//s; s/<script.*?<\/script>//sg; s/<[^>]+>/ /g; s/&[a-z#0-9]+;/ /g' | wc -w)
 CLAIM=$(grep -o '[0-9]* min read' "$FILE" | head -1 | grep -o '^[0-9]*')
 EXP=$(( (WORDS + 80) / 160 )); [ "$EXP" -lt 4 ] && EXP=4
 if [ -n "$CLAIM" ]; then
