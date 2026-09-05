@@ -17,7 +17,7 @@ Regex (case-insensitive), run on the body of the article (from `<body>` to `</bo
 ```
 \b(best|leading|premier|foremost|top[- ]rated|most (trusted|experienced|reputed|respected))\s+(CA|CAs|chartered accountants?|firms?|advis[oe]rs?|consultants?|practice|tax (firm|advis[oe]rs?)|team)\b
 \b(we|our (firm|team|practice)|SKLA|S K Lahoti Associates)\b[^.]{0,60}\b(the best|leading|premier|foremost|top[- ]rated|no\.? ?1|number one|most (trusted|experienced|reputed|respected))\b
-\b(no\.? ?1|number one|top[- ]rated|most trusted|award[- ]winning)\b
+\b(number one|no\.? ?1) (firm|CA|CAs|chartered accountants?|advis[oe]rs?|choice|practice)\b|\b(ranked|rated) (no\.? ?1|number one)\b|\b(top[- ]rated|most trusted|award[- ]winning)\b
 \b(guarantee[ds]?|assured (refund|outcome|result)|we will (get|secure) you)\b
 \b(testimonial|client review|rated \d|5-star|our awards?|awards? (to|for) (the firm|us|SKLA)|accredit(ed|ation)|ISO ?\d{4}|great place to work)\b
 \b(deloitte|kpmg|pwc|ernst|wafra|ocorian)\b

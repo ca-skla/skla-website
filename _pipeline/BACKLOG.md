@@ -5,7 +5,7 @@ routines only change `status`, `PR` and dates. See RUNBOOK §4.3 and §7.
 
 ## State
 ```
-last_run: —
+last_run: 2026-09-05 (corrections pass, interactive)
 last_scanned: 2026-09-05
 next_audience: business        # rotation: nri -> investor -> business -> nri
 featured_slug: insights-income-tax-act-2025-vs-1961.html
@@ -20,6 +20,7 @@ row's `publish_by` is within 30 days. `audience` = nri | investor | business | n
 
 | # | id | working title | audience | type | pillar | brief / source | service | words | publish_by | blocked_by | push | status | PR | dates |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | Q-00 | The Foreign Assets of Small Taxpayers Disclosure Scheme, 2026: who can use the window before 31 December 2026 | nri newact | Update | A | reactive: Finance Act 2026 Ch. IV; Rules G.S.R. 732(E), 14 Aug 2026 (FACTS F-0201) | nri | 900–1,400 | 2026-09-20 | — | yes | queued | | material NEW item found by the corrections pass, 2026-09-05 |
 | 1 | Q-01 | ROC annual compliance: AGM, AOC-4, MGT-7, DIR-3 KYC, ADT-1 — what every company files each year | business | Reference | D | STRATEGY Pillar D ("ROC annual compliance"); MCA-filings gap | advisory | 1,500–1,800 | 2026-09-20 | — | yes | queued | | |
 | 2 | Q-02 | How an NRI files an income-tax return in India (and when one is required) | nri | How-to | A | STRATEGY Pillar A; Week 8 | nri | 1,800–2,200 | — | — | yes | queued | | |
 | 3 | Q-03 | Transfer pricing in India: who it applies to, Form 48 (earlier Form 3CEB) and the report deadline | investor | Guide | E | STRATEGY Pillar E | tax | 1,800–2,200 | 2026-10-15 | — | yes | queued | | |
