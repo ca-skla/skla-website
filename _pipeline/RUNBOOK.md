@@ -72,9 +72,13 @@ change is already reflected on the page before acting on it.
 
 ### 4.0 Bootstrap
 ```
-git fetch origin && git checkout main && git pull --ff-only
+git fetch origin && git checkout -q main && git reset -q --hard origin/main && git clean -fdq
+for b in $(git branch --format='%(refname:short)' | grep -v '^main$'); do git branch -q -D "$b"; done
 ```
-Read `config.yml`. If `paused: true` → print `STATUS: PAUSED`, stop. Set `TODAY=$(date -u +%F)`,
+The cloud sandbox can hand you the previous run's working directory (its local branches, untracked files and
+`/tmp` scratch): the reset above makes every run start from `origin/main`. Anything worth keeping from an
+earlier run is already on `origin` (§4.11) — inspect `origin/dryrun/*` or the open PR's branch with
+`git log`/`git show`, never by reusing stale local state. Read `config.yml`. If `paused: true` → print `STATUS: PAUSED`, stop. Set `TODAY=$(date -u +%F)`,
 `MONTH_LABEL=$(date -u +"%B %Y")`, `DISPLAY_DATE=$(date -u +"%-d %B %Y")`.
 Environment probe (report the results, never the values; Appendix C): `command -v gh`; `GITHUB_TOKEN` set
 (yes/no); GitHub reachable (`curl -s --max-time 20 https://api.github.com/repos/ca-skla/skla-website` returns
@@ -237,8 +241,8 @@ Existing `insights-*.html` (content and References block; never the related-grid
 | registration.telangana.gov.in, tgct.gov.in | Telangana stamp duty / state GST | as needed |
 | contents.tdscpc.gov.in (TRACES) | TDS procedures, Form 128/27Q mechanics | as needed |
 
-Scan index URLs (verified 5 Sep 2026; the routine prompts repeat them so `WebFetch` has provenance — keep the
-two lists identical when you change one):
+Scan index URLs (verified 5 Sep 2026; the routine prompts repeat them as the scan checklist — keep the two
+lists identical when you change one; each still needs a `WebSearch` hit before `WebFetch`, see §6.3):
 ```
 https://www.incometaxindia.gov.in/notifications
 https://www.incometaxindia.gov.in/circulars
@@ -274,14 +278,16 @@ registries and GitHub — every Indian government host is `connect_rejected` by 
 rungs below are dead there and `WebFetch` is the only way to read a source. `WebFetch` *does* read
 incometaxindia.gov.in (section pages `/w/section-…`, `/documents/…/*.pdf`), rbi.org.in and the other portals —
 it is not bot-blocked the way `curl` is from a desktop. Three rules that follow:
-- **Provenance.** `WebFetch` fetches without asking only a URL that already appeared in a `WebSearch` result or
-  in the routine prompt. A URL typed from memory, built by pattern (`…/section-131-93`), copied out of a repo
-  file, or taken from a page that `WebFetch` returned (a PDF link on a tracker site, say) raises a permission
-  prompt that nobody answers: the run stalls five minutes and gets `PROVENANCE_REQUIRED` (all four cases were
-  observed on 5 Sep 2026). So: surface every URL through `WebSearch` first (`site:incometaxindia.gov.in "section
-  131" "Foreign Assets"`, `site:egazette.gov.in "G.S.R. 732(E)"`, or the URL string itself) and fetch it exactly
-  as the result shows it. On `PROVENANCE_REQUIRED` never retry the same URL — search for it. Budget: two such
-  failures per run, then stop constructing URLs altogether.
+- **Provenance.** `WebFetch` fetches without asking only a URL that already appeared in a `WebSearch` result
+  *in this run*. Every other origin raises a permission prompt that nobody answers — the run stalls five minutes
+  and gets `PROVENANCE_REQUIRED`: a URL typed from memory, built by pattern (`…/section-131-93`), copied out of
+  a repo file, taken from a page that `WebFetch` returned (a PDF link on a tracker site), **and even a URL listed
+  in the routine prompt** (all five cases observed on 5 Sep 2026). So: surface every URL through `WebSearch`
+  first — `site:incometaxindia.gov.in "section 131" "Foreign Assets"`, `site:egazette.gov.in "G.S.R. 732(E)"`,
+  or simply the URL string in quotes (`"incometax.gov.in/iec/foportal/latest-news"`) — and fetch it exactly as
+  the result shows it. The scan-page list in §6.2 is a list of what to search for, not of pre-approved
+  fetches. On `PROVENANCE_REQUIRED` never retry the same URL — search for it. Budget: two such failures per
+  run, then stop constructing URLs altogether.
 - **robots.txt.** `ROBOTS_DISALLOWED` usually means a query string (`?p_l_back_url=…`); search for the clean URL
   and fetch that. If the clean URL is refused too, the page is unreachable this run — next rung.
 - **Index pages that do not render.** `WebFetch` sees only navigation on the CBDT lists at
