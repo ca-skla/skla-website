@@ -76,14 +76,19 @@ git fetch origin && git checkout main && git pull --ff-only
 ```
 Read `config.yml`. If `paused: true` → print `STATUS: PAUSED`, stop. Set `TODAY=$(date -u +%F)`,
 `MONTH_LABEL=$(date -u +"%B %Y")`, `DISPLAY_DATE=$(date -u +"%-d %B %Y")`.
-Environment probe (report the results, never the values): `command -v gh`; `gh auth status` (yes/no);
-`GITHUB_TOKEN` set (yes/no); which of the allowlisted portals returned readable content (§6.3 ladder).
+Environment probe (report the results, never the values; Appendix C): `command -v gh`; `GITHUB_TOKEN` set
+(yes/no); GitHub reachable (`curl -s --max-time 20 https://api.github.com/repos/ca-skla/skla-website` returns
+JSON with `"full_name"`, yes/no); which `mcp__github__*` tools exist (`ToolSearch` keyword `github pull
+request`). Do not probe the portals with `curl` — in the cloud sandbox they are all blocked (§6.3); portal
+reachability is learned from the first `WebFetch` of the scan. Cloud facts as of 5 Sep 2026: `gh` absent,
+token present, GitHub API and MCP working once the Claude GitHub App is installed for the organisation (it is).
 
 ### 4.1 Gate
 `git ls-remote --heads origin 'insight/*'` non-empty, or an open PR with head `insight/*`
-(`curl -s https://api.github.com/repos/ca-skla/skla-website/pulls?state=open`) → `STATUS: SKIPPED`; if `gh` is
-authenticated, `gh pr comment <n> --body "Reminder: this draft is still awaiting review; the <TODAY> scheduled
-draft was skipped and will run after this PR is merged or closed."` Print the summary block (§14) and stop.
+(`mcp__github__list_pull_requests` state `open`, else `curl -s https://api.github.com/repos/ca-skla/skla-website/pulls?state=open`)
+→ `STATUS: SKIPPED`; leave a reminder comment on that PR if a comment tool or the REST API is available
+(`"Reminder: this draft is still awaiting review; the <TODAY> scheduled draft was skipped and will run after this
+PR is merged or closed."`). Print the summary block (§14) and stop.
 
 ### 4.2 Scan for developments (also feeds refresh items and bulletin notes)
 Read the `State` block of `BACKLOG.md` (`last_scanned`, `next_audience`). For each source in §6.2, collect items
@@ -100,7 +105,8 @@ Dedupe (§7.3). No item and nothing material → `STATUS: EMPTY-BACKLOG` (still 
 
 ### 4.4 Research → source dossier (§6)
 Build the dossier before writing prose: for every proposition the article will make, an instrument, its official
-URL, the quoted excerpt (≤ 40 words) that supports it, the effective date, and the in-force check. Write the
+URL, the quoted excerpt (≤ 40 words; ≤ 125 characters when read through `WebFetch`, §6.3) that supports it,
+the effective date, and the in-force check. Write the
 `FACTS.md` rows now (row first, prose second). Append the brief to `BRIEFS.md` (keyword, intent, outline,
 FAQ, links, differentiation, sources).
 
@@ -143,10 +149,14 @@ for <slug>`. Diff audit per R2.
 
 ### 4.11 Deliver
 - `mode: dry-run` → `git push -u origin HEAD:dryrun/$SLUG`; no PR, no e-mail; print the compare URL.
-- `mode: live` → `git push -u origin insight/$SLUG`, then (a) `gh pr create --base main --head insight/$SLUG
-  --title "[DRAFT] <title>" --body-file _pipeline/reviews/$SLUG.md` (+ `gh pr edit --add-label draft-article`;
-  add `needs-partner` if any ⚠ row); (b) else with `GITHUB_TOKEN`: `POST /repos/ca-skla/skla-website/pulls`;
-  (c) else print `OPEN PR MANUALLY: https://github.com/ca-skla/skla-website/compare/main...insight/$SLUG?expand=1`.
+- `mode: live` → `git push -u origin insight/$SLUG`, then open the PR (base `main`, head `insight/$SLUG`,
+  title `[DRAFT] <title>`, body = `_pipeline/reviews/$SLUG.md`, labels `draft-article` + `needs-partner` if any
+  ⚠ row) by the first route that works: (a) the GitHub MCP tools (`mcp__github__create_pull_request`, then the
+  issue/label tool for labels); (b) `gh pr create … --body-file …` if `gh` exists; (c) REST with `GITHUB_TOKEN`:
+  `curl -s -X POST -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json"
+  https://api.github.com/repos/ca-skla/skla-website/pulls -d @body.json` (build `body.json` with `python3`/`perl`
+  so the markdown is JSON-escaped), labels via `POST …/issues/<n>/labels`; (d) else print
+  `OPEN PR MANUALLY: https://github.com/ca-skla/skla-website/compare/main...insight/$SLUG?expand=1`.
   Preview URL: `https://deploy-preview-<PR#>--<netlify_site_name>.netlify.app/insights-$SLUG.html` (or the
   branch deploy `https://insight-$SLUG--<site>.netlify.app/…` when there is no PR number yet).
   E-mail (Gmail tool present): to `notify_email`, subject `[SKLA site] Draft ready for review: <title> (PR #n)`,
@@ -227,16 +237,61 @@ Existing `insights-*.html` (content and References block; never the related-grid
 | registration.telangana.gov.in, tgct.gov.in | Telangana stamp duty / state GST | as needed |
 | contents.tdscpc.gov.in (TRACES) | TDS procedures, Form 128/27Q mechanics | as needed |
 
+Scan index URLs (verified 5 Sep 2026; the routine prompts repeat them so `WebFetch` has provenance — keep the
+two lists identical when you change one):
+```
+https://www.incometaxindia.gov.in/notifications
+https://www.incometaxindia.gov.in/circulars
+https://www.incometaxindia.gov.in/press-release
+https://www.incometaxindia.gov.in/what-s-new
+https://www.incometax.gov.in/iec/foportal/latest-news
+https://egazette.gov.in/
+https://taxinformation.cbic.gov.in/content-page/explore-notification
+https://taxinformation.cbic.gov.in/content-page/explore-circular
+https://www.cbic.gov.in/entities/view-sticker
+https://gstcouncil.gov.in/press-release
+https://gstcouncil.gov.in/gst-council-meetings
+https://www.gst.gov.in/newsandupdates/read
+https://www.rbi.org.in/Scripts/NotificationUser.aspx
+https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx
+https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx
+https://www.mca.gov.in/content/mca/global/en/notifications-tender/whats-new.html
+https://www.mca.gov.in/content/mca/global/en/notifications-tender/circulars.html
+https://www.mca.gov.in/content/mca/global/en/notifications-tender/news-updates/updates.html
+https://www.mca.gov.in/content/mca/global/en/acts-rules.html
+https://dpiit.gov.in/policies-rules-and-acts/press-notes-fdi-policy
+https://www.pib.gov.in/allRel.aspx
+https://www.icai.org/category/announcements
+```
+
 Secondary sites (Taxmann, TaxGuru, ClearTax, CAclubindia, Big-4 alerts, PRS, business press) are for discovery
 only — to learn that something happened and to find the instrument number. Never cite or link them; record them
 in `FACTS.md` notes as "found via".
 
 ### 6.3 Fetch ladder (some portals block automated clients)
-Probed 5 Sep 2026: rbi.org.in, gstcouncil.gov.in, cbic-gst.gov.in readable; taxinformation.cbic.gov.in and
-egazette.gov.in need `curl -k`; pib.gov.in and indiacode.nic.in need browser-like headers; **incometaxindia.gov.in
-and mca.gov.in return 403 to every non-browser client** (discovery still works through `site:` search, whose
-index carries instrument numbers and titles).
-1. Fetch the official page/PDF directly (`WebFetch`, else
+**In the cloud routine sandbox (observed on the first run, 5 Sep 2026):** outbound `curl` reaches only package
+registries and GitHub — every Indian government host is `connect_rejected` by the egress proxy, so the `curl`
+rungs below are dead there and `WebFetch` is the only way to read a source. `WebFetch` *does* read
+incometaxindia.gov.in (section pages `/w/section-…`, `/documents/…/*.pdf`), rbi.org.in and the other portals —
+it is not bot-blocked the way `curl` is from a desktop. Three rules that follow:
+- **Provenance.** `WebFetch` fetches without asking only a URL that already appeared in a `WebSearch` result or
+  in the routine prompt. A URL typed from memory, built by pattern (`…/section-131-93`) or copied out of a repo
+  file raises a permission prompt that nobody answers: the run stalls five minutes and gets
+  `PROVENANCE_REQUIRED`. So: surface every URL through `WebSearch` first (`site:incometaxindia.gov.in "section
+  131" "Foreign Assets"`, `site:egazette.gov.in "G.S.R. 732(E)"`, or the URL string itself) and fetch it exactly
+  as the result shows it. On `PROVENANCE_REQUIRED` never retry the same URL — search for it. Budget: two such
+  failures per run, then stop constructing URLs altogether.
+- **robots.txt.** `ROBOTS_DISALLOWED` usually means a query string (`?p_l_back_url=…`); search for the clean URL
+  and fetch that. If the clean URL is refused too, the page is unreachable this run — next rung.
+- **Verbatim text.** `WebFetch` summarises unless told not to and caps quotations at about 125 characters. Ask
+  it to "print the main content as raw text, character for character, no paraphrase" for statutory text, and
+  for register excerpts ask for "short verbatim excerpts under 125 characters, in quotation marks". A FACTS
+  excerpt is therefore ≤ 125 characters (≈ 20 words); two excerpts are fine when one cannot carry the point.
+Desktop probe (5 Sep 2026, for the interactive path): rbi.org.in, gstcouncil.gov.in, cbic-gst.gov.in readable;
+taxinformation.cbic.gov.in and egazette.gov.in need `curl -k`; pib.gov.in and indiacode.nic.in need browser-like
+headers; **incometaxindia.gov.in and mca.gov.in return 403 to every non-browser client** (this desktop app's
+browser reads them; discovery works through `site:` search, whose index carries instrument numbers and titles).
+1. Fetch the official page/PDF directly (`WebFetch` with a URL that has provenance; desktop only: else
    `curl -sSL -k -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128 Safari/537.36"`;
    PDFs → text with `pdftotext` or `python3 -c "import pypdf…"` if available).
 2. Gazette copy on egazette.gov.in (search `site:egazette.gov.in "G.S.R. <no>(E)"` or the notification title).
@@ -457,8 +512,22 @@ within 30 days of AGM · MGT-7 within 60 days of AGM · Budget 1 Feb · Income-t
 typically Feb–Apr.
 
 ## Appendix C — environment probe commands
-`command -v gh; gh auth status 2>&1 | head -1; [ -n "$GITHUB_TOKEN" ] && echo token=yes || echo token=no;`
+```
+command -v gh || echo gh=no
+[ -n "$GITHUB_TOKEN" ] && echo token=yes || echo token=no
+curl -s --max-time 20 https://api.github.com/repos/ca-skla/skla-website | grep -q '"full_name"' && echo github=yes || echo github=no
+```
+Then `ToolSearch` with keyword `github pull request` and note which `mcp__github__*` tools exist. In the cloud
+sandbox `curl` to any Indian government host fails with `connect_rejected` (egress proxy) — that is expected,
+not a fault; do not loop over the portals. On a desktop run the old loop still tells you which portals answer:
 `for u in https://www.rbi.org.in/Scripts/NotificationUser.aspx https://gstcouncil.gov.in/ https://cbic-gst.gov.in/
 https://egazette.gov.in/ https://pib.gov.in/allRel.aspx https://www.incometaxindia.gov.in/notifications
 https://www.mca.gov.in/; do printf "%s " "$u"; curl -s -k -o /dev/null -w "%{http_code}\n" -A "Mozilla/5.0"
 --max-time 20 "$u"; done`
+
+## Appendix D — time budget (cloud runs)
+A run should finish inside two hours. Guide: bootstrap + gate + scan ≤ 20 min; research and dossier ≤ 50 min;
+drafting ≤ 30 min; verification pass ≤ 20 min; lint, pack, delivery ≤ 15 min. Each `PROVENANCE_REQUIRED` stall
+costs five minutes — that is why URLs come from `WebSearch` results. If research cannot close the dossier within
+the budget, ship the article without the unsupported points (hedge, ⚠ row) or, if that guts it, stop with
+`STATUS: FAILED` and the reasons; never pad the time with retries of the same fetch.
