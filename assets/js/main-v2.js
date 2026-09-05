@@ -80,7 +80,7 @@
         var f = pill.getAttribute("data-filter");
         filterPills.forEach(function (p) { p.classList.remove("active"); });
         pill.classList.add("active");
-        document.querySelectorAll(".post-card").forEach(function (card) {
+        document.querySelectorAll(".post-card, .update-item").forEach(function (card) {
           var aud = card.getAttribute("data-audience") || "";
           var show = f === "all" || aud.split(" ").indexOf(f) !== -1;
           card.classList.toggle("hidden", !show);

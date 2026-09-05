@@ -1,0 +1,26 @@
+# SKLA insights pipeline — runtime configuration (read by both cloud routines at start).
+# Edit on GitHub (web editor is fine). This file is the kill switch and the dry-run flag.
+
+mode: dry-run            # dry-run | live   (dry-run: push to dryrun/<branch>, open no PR, send no email)
+paused: false            # true = both routines print "STATUS: PAUSED" and stop immediately
+
+repo: ca-skla/skla-website
+default_branch: main
+site_url: https://www.skla.in
+netlify_site_name: ""    # Netlify > Site configuration > Site details > Site name (e.g. skla-in); enables preview URLs
+
+reviewer_name: "CA. Sunil Kumar Lahoti"
+reviewer_initials: "SL"
+reviewer_line: "Partner, S K Lahoti Associates, Chartered Accountants."
+notify_email: "skla@skla.in"   # the ONLY address the routines may ever email
+
+lanes:
+  draft:
+    branch_prefix: "insight/"
+    max_open: 1
+    max_related_swaps: 3
+  refresh:
+    branch_prefix: "refresh/"
+    max_open: 1
+    reverify_after_days: 90
+    bulletin_max_items: 6

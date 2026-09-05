@@ -4,17 +4,22 @@
   ============================================================
   SKLA INSIGHTS — ARTICLE TEMPLATE
   ============================================================
-  This is the reusable layout for every Insights article. To publish a new post:
-    1. Copy this file to a slug, e.g. insights-nri-lower-tds-certificate.html
-    2. Replace every {{PLACEHOLDER}} (head tags, schema, breadcrumb, title, body).
-    3. Fill the body from the matching brief in INSIGHTS-BRIEFS.md.
-    4. Keep the Article + (HowTo if step-based) + FAQPage + BreadcrumbList schema in sync
-       with the visible content — Google penalises schema that doesn't match the page.
-    5. Add ONE internal link to the matching service section (services.html#...).
-    6. Add the new URL to sitemap.xml and a card to insights.html (remove "Coming soon").
-    7. Every figure/date/form-name MUST be partner-reviewed before publishing.
-  The worked example below is article #1 (NRI lower/NIL TDS certificate). Text marked
-  is illustrative scaffolding, NOT verified copy — replace with reviewed content.
+  This is the reusable layout for every Insights article. The full procedure lives in
+  _pipeline/RUNBOOK.md (§8 drafting rules, §9 article contract). In short:
+    1. Copy this file to a slug, e.g. insights-nri-lower-tds-certificate.html, and delete
+       EVERY HTML comment (live articles carry none; the lint fails on "<!--").
+    2. Research first: every figure, rate, date, form, section and judgment gets a row in
+       _pipeline/FACTS.md with the primary instrument, official URL and a quoted excerpt.
+       The element that states it carries data-fact="F-####". No row, no sentence.
+    3. Replace the head tags, the JSON-LD (Article; HowTo only if step-based; FAQPage mirrors
+       the visible FAQ exactly; BreadcrumbList), breadcrumb, title and body.
+    4. Keep the anatomy: lead → h2 sections → callout "The short version" → one practitioner
+       blockquote → byline → FAQ (3–5) → References block → related grid (3 live cards) → disclaimer.
+    5. Exactly ONE link to the matching service section (services.html#...); 1–3 sibling links.
+    6. Add the <url> to sitemap.xml and a card at the top of the audience group in insights.html.
+    7. Run bash _pipeline/bin/check-article.sh <slug>; open a PR — a partner reviews before merge.
+  The worked example below is article #1 (NRI lower/NIL TDS certificate). Its figures are
+  illustrative scaffolding, NOT verified copy — replace with sourced, reviewed content.
   ============================================================
 -->
 <head>
@@ -180,7 +185,7 @@
       <h3>5. Hand the certificate to your buyer</h3>
       <p>How the buyer then deducts at the lower rate.</p>
 
-      <blockquote>A short, quotable line of genuine practitioner insight — the kind of thing only a firm that has filed these would know.</blockquote>
+      <blockquote>A short, quotable line of genuine practitioner insight &mdash; the kind of thing only a firm that has filed these would know.</blockquote>
 
       <!-- COMMON MISTAKES -->
       <h2>Common mistakes that cost NRIs money</h2>
@@ -195,7 +200,7 @@
         </div>
       </div>
 
-      <!-- FAQ — must match FAQPage schema above -->
+      <!-- FAQ &mdash; must match FAQPage schema above -->
       <div class="faq-block">
         <h2>Frequently asked questions</h2>
         <div class="faq-item">
@@ -207,43 +212,55 @@
           <div class="faq-a"><div class="faq-a-inner"><p>Plan for several weeks from application to issue, depending on the Assessing Officer and how complete the documentation is. Apply well before the sale closes.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">Who applies — the NRI seller or the buyer? <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+          <button class="faq-q">Who applies &mdash; the NRI seller or the buyer? <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="faq-a"><div class="faq-a-inner"><p>The NRI seller applies for the certificate. The buyer is the one who deducts and deposits the TDS, and relies on the certificate to deduct at the lower rate.</p></div></div>
         </div>
       </div>
+
+      <!-- REFERENCES &mdash; one entry per instrument/judgment relied on; li carries the data-fact id of the row
+           in _pipeline/FACTS.md; dates = the day the sources were read. Links only to official domains. -->
+      <section class="article-refs">
+        <h2>References</h2>
+        <p class="refs-note">Position stated as on 15 September 2026 &middot; sources checked 15 September 2026.</p>
+        <ol>
+          <li data-fact="F-0019">Income-tax Act, 2025, section 395 (lower or nil deduction certificate; section 197 of the Income-tax Act, 1961). <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a></li>
+          <li data-fact="F-0002">Income-tax Rules, 2026 &mdash; Notification No. 22/2026 [F. No. 370142/41/2025-TPL] / G.S.R. 198(E), 20 March 2026 (CBDT), prescribing Form 128 (earlier Form 13). <a href="https://egazette.gov.in/" target="_blank" rel="noopener">Gazette of India</a></li>
+          <li data-fact="F-0040">Finance (No. 2) Act, 2024 &mdash; long-term capital gains on land or building transferred on or after 23 July 2024 taxed at 12.5% without indexation. <a href="https://egazette.gov.in/" target="_blank" rel="noopener">Gazette of India</a></li>
+        </ol>
+      </section>
 
     </div>
   </div>
 </section>
 
-<!-- RELATED ARTICLES -->
+<!-- RELATED ARTICLES &mdash; exactly three live cards from the same audience group; h3 wraps the link -->
 <section class="bg-paper">
   <div class="container">
     <div class="section-head reveal"><span class="eyebrow">Keep reading</span><h2>Related guides</h2></div>
     <div class="related-grid reveal">
       <article class="post-card" data-audience="nri">
         <span class="post-tag t-nri">NRI &amp; OCI</span>
-        <h3>TDS on Sale of Property by an NRI: Full 2026 Guide</h3>
+        <h3><a href="insights-nri-tds-property-sale.html">TDS on Sale of Property by an NRI: The Full 2026 Guide</a></h3>
         <p>The rates that apply, who deducts, and the forms involved.</p>
-        <div class="post-meta"><span>Guide</span><span class="dot"></span><span>Coming soon</span></div>
+        <div class="post-meta"><span>Guide</span><span class="dot"></span><span>11 min read</span></div>
       </article>
       <article class="post-card" data-audience="nri">
         <span class="post-tag t-nri">NRI &amp; OCI</span>
-        <h3>Repatriating Money from India: 15CA / 15CB Explained</h3>
+        <h3><a href="insights-nri-repatriation-15ca-15cb.html">Repatriating Money from India: Forms 145/146 Explained</a></h3>
         <p>Moving sale proceeds out of India, compliantly.</p>
-        <div class="post-meta"><span>How-to</span><span class="dot"></span><span>Coming soon</span></div>
+        <div class="post-meta"><span>How-to</span><span class="dot"></span><span>10 min read</span></div>
       </article>
       <article class="post-card" data-audience="nri">
         <span class="post-tag t-nri">NRI &amp; OCI</span>
-        <h3>NRI Residential Status &amp; RNOR, Explained</h3>
-        <p>What India can tax — and the window that can save you tax.</p>
-        <div class="post-meta"><span>Guide</span><span class="dot"></span><span>Coming soon</span></div>
+        <h3><a href="insights-nri-residential-status-rnor.html">NRI Residential Status &amp; RNOR Explained</a></h3>
+        <p>What India can tax &mdash; and the window that can save you tax.</p>
+        <div class="post-meta"><span>Guide</span><span class="dot"></span><span>8 min read</span></div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ARTICLE CTA -->
+<!-- DISCLAIMER &mdash; verbatim on every article; never edited -->
 <section>
   <div class="container">
     <div class="article-disclaimer reveal">
@@ -288,7 +305,6 @@
     <div class="footer-bottom">
       <span>&copy; <span id="year">2026</span> S K Lahoti Associates, Chartered Accountants.</span>
       <span>This website is intended only to provide information about the firm on a no-solicitation basis, in accordance with the Chartered Accountants Act, 1949 and the ICAI Code of Ethics.</span>
-      <span>Last updated: June 2026.</span>
     </div>
   </div>
 </footer>
