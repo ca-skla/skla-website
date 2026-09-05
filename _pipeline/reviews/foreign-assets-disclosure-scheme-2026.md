@@ -2,13 +2,13 @@
 A reactive `Update` on the Foreign Assets of Small Taxpayers Disclosure Scheme, 2026 (Chapter IV, sections 130 to 144 of the Finance Act, 2026; Rules notified by Notification No. 114/2026, G.S.R. 732(E), 14 August 2026; in force 16 August 2026; last date 31 December 2026). It explains the two categories (30% plus an equal amount for undisclosed foreign assets or income up to ₹1 crore in aggregate; a ₹1 lakh fee for assets up to ₹5 crore that were taxed or earned while non-resident but not reported), who the CBDT's FAQs say may declare, how assets are valued as on 31 March 2026 (including the "sum of deposits" rule for bank accounts), the Form 1 → Form 2 → payment → Form 3 → Form 4 sequence with its two-plus-two-month clock, the section 139 immunity, and what has not changed. Written for residents and returning NRIs whose foreign holdings never reached an Indian return. Body 1,399 words (Update range 900–1,400); 3 FAQs.
 
 ## Why this topic now
-Reactive item BACKLOG Q-00, flagged material by the corrections pass on 5 September 2026 (bulletin note of 14 August 2026, F-0201). Rubric: primary-sourced (Act text on CBDT's Act browser; Rules on the CBDT copy of the notification), effective (16 August 2026), in scope (NRIs / returning residents; foreign-asset reporting), actionable (a fixed window closing 31 December 2026 with a payment clock), not reflected on any existing page. `publish_by` 2026-09-20. The rotation slot (`next_audience: business`) was not consumed; Q-01 remains next.
+Reactive item BACKLOG Q-00, flagged material by the corrections pass on 5 September 2026 (bulletin note of 14 August 2026, F-0201). Rubric: primary-sourced (Act text on CBDT's Act browser; Rules on the CBDT copy of the notification), effective (16 August 2026), in scope (NRIs / returning residents; foreign-asset reporting), actionable (a fixed window closing 31 December 2026 with a payment clock), not reflected on any existing page. `publish_by` 2026-09-20. Drafted on the 5 September 2026 dry run (`dryrun/foreign-assets-disclosure-scheme-2026`), then rebuilt on `insight/foreign-assets-disclosure-scheme-2026` from current `main` and re-verified source by source on the live run the same day. The rotation slot (`next_audience: business`) was not consumed; Q-01 remains next.
 
 ## Audience · Type · Reviewer · Service link · push
 `nri newact` · Update · Reviewed by CA. Sunil Kumar Lahoti · services.html#nri · push: yes
 
 ## ⚠ VERIFY — every figure, date, form and section in the article
-Rows marked ✅ were re-fetched on 5 September 2026 and the excerpt found in the primary source. Rows marked ⚠ rest on the CBDT's FAQ document (official, explanatory) because the operative text of those sections could not be reached by the routine (Gazette 271439 and the Act-browser pages for ss.131, 132, 135–138, 140 were blocked; ss.130, 133, 134, 139, 141, 144 were read); the sentences are hedged as the FAQ position. Tick the last column as you confirm.
+Rows marked ✅ were re-fetched on the live run of 5 September 2026 and the excerpt found in the primary source (sections 130, 133, 134 and 139 on the CBDT Act browser; Notification 114/2026 and the FAQs on incometaxindia.gov.in). Rows marked ⚠ rest on the CBDT's FAQ document (official, explanatory) because the operative text of sections 131, 132, 135 to 138 and 140 could not be reached by the routine: the individual Act-browser pages for those sections did not surface in search, the CBDT copy of the Finance Act, 2026 is cut off by the fetcher before Chapter IV, and the Gazette copy (271439) fails TLS. The three sentences are hedged as the FAQ position. No amending or clarifying instrument after 14 August 2026 was found. Tick the last column as you confirm.
 
 | # | fact id | sentence as written | value | instrument (number · date) | link | excerpt | effective | status | ☐ |
 |---|---|---|---|---|---|---|---|---|---|
@@ -85,7 +85,7 @@ RESULT: 0 fail(s), 0 warning(s) — insights-foreign-assets-disclosure-scheme-20
 
 == check-site: lane=draft
 ok    on branch insight/foreign-assets-disclosure-scheme-2026
-ok    diff audited (7 file(s))
+ok    diff audited (8 file(s))
 ok    all 37 html files end with </html>
 ok    sitemap has no duplicate <loc>
 ok    sitemap envelope well-formed
@@ -95,16 +95,17 @@ RESULT: 0 fail(s) — lane draft
 ```
 
 ## Preview
-Dry-run: no PR, so no deploy preview. Branch deploy (if enabled on Netlify): https://dryrun-foreign-assets-disclosure-scheme-2026--skla-associates.netlify.app/insights-foreign-assets-disclosure-scheme-2026.html · index card: …/insights.html. Compare: https://github.com/ca-skla/skla-website/compare/main...dryrun/foreign-assets-disclosure-scheme-2026?expand=1
+Deploy preview: https://deploy-preview-1--skla-associates.netlify.app — article: https://deploy-preview-1--skla-associates.netlify.app/insights-foreign-assets-disclosure-scheme-2026.html · index card: https://deploy-preview-1--skla-associates.netlify.app/insights.html
+Branch deploy (if enabled): https://insight-foreign-assets-disclosure-scheme-2026--skla-associates.netlify.app/insights-foreign-assets-disclosure-scheme-2026.html · Compare: https://github.com/ca-skla/skla-website/compare/main...insight/foreign-assets-disclosure-scheme-2026
 
 ## Files changed
-- insights-foreign-assets-disclosure-scheme-2026.html (new) · insights.html (card) · sitemap.xml · insights-nri-residential-status-rnor.html (related-grid link only) · _pipeline/BACKLOG.md · _pipeline/BRIEFS.md (Brief 19) · _pipeline/FACTS.md (F-0201 updated; F-0204–F-0219 added) · _pipeline/reviews/foreign-assets-disclosure-scheme-2026.md
+- insights-foreign-assets-disclosure-scheme-2026.html (new) · insights.html (card) · sitemap.xml · insights-nri-residential-status-rnor.html (related-grid link only) · _pipeline/BACKLOG.md · _pipeline/BRIEFS.md (Brief 19) · _pipeline/FACTS.md (F-0201 updated; F-0204–F-0219 added; live-run verification notes) · _pipeline/reviews/foreign-assets-disclosure-scheme-2026.md
 
 ## Bulletin notes added
 none — the e-filing portal's 1 September 2026 news item re-announces Notification 114/2026, already covered by the 14 August 2026 note (F-0201).
 
 ## Sources scanned this run
-Window: 2026-09-05 → 2026-09-05 (last_scanned was today, after the corrections pass). Portals: rbi.org.in Notifications (readable; newest 2 Sep 2026 — banking circulars, nothing in scope); incometax.gov.in Latest Updates (readable; 1 Sep 2026 FAST-DS rules item; 20 Aug 2026 ITR-6 utility); incometaxindia.gov.in notifications/circulars lists (JavaScript-rendered — discovery by search: nothing after Notification 114/2026 / Circular 6/2026 found); gstcouncil.gov.in, cbic-gst.gov.in, egazette.gov.in, pib.gov.in, indiacode.nic.in, mca.gov.in, gst.gov.in (all blocked to the routine's HTTP client by the egress proxy; egazette also blocked in the fetch tool). Items triaged: 4 — FAST-DS rules (NEW → this article); 57th GST Council meeting scheduled 12 Sep 2026 (ignore: meeting notice, not law); MCA General Circular 04/2026 of 31 Aug 2026 extending the Companies Compliance Facilitation Scheme, 2026 to 15 Sep 2026 (BULLETIN candidate, in scope for Indian businesses, but mca.gov.in returned 403 to every fetch — **not written**; reviewer may add it by hand from the portal); GSTN maintenance 1 Sep 2026 (ignore).
+Window: 2026-09-05 → 2026-09-05 (`last_scanned` was already today, after the corrections pass and the dry run). Read: incometax.gov.in Latest Updates (newest item 1 Sep 2026 — Notification 114/2026 rules and forms, already covered by the 14 Aug 2026 bulletin note); rbi.org.in Notifications (newest 2 Sep 2026 — accounts of non-resident banks, CIMS half-yearly return, UCB investment directions: banking-side, not in scope). Discovery by search: CBDT Notifications 115/2026 (21 Aug) and 116–117/2026 (25 Aug) — exemption notifications for a regulatory commission, ignore; 57th GST Council meeting called for 12 Sep 2026 — meeting notice, not law, ignore; MCA General Circular extending the Companies Compliance Facilitation Scheme, 2026 to 15 Sep 2026 — BULLETIN candidate for Indian businesses, but every mca.gov.in document link returns 403 to the fetcher, so it is **not written** (reviewer may add it from the portal). Not readable this run: gst.gov.in News & Updates (script-rendered), gstcouncil.gov.in notification list (stale), egazette.gov.in (TLS), mca.gov.in documents (403). Items triaged: 5 — 1 already covered, 3 ignore, 1 bulletin candidate withheld for want of a readable official copy.
 
 ## How to publish
-This is a **dry-run** branch (`config.yml` mode: dry-run): nothing to merge. To publish, set `mode: live` so the next run opens `insight/foreign-assets-disclosure-scheme-2026` as a PR — or open a PR from the compare link above, confirm every ⚠ row, merge (squash), then say "sync mirror" in the desktop app.
+Confirm every ⚠ row (F-0207, F-0217, F-0219 — the FAQ-based sentences; the reviewer can read sections 131, 132, 135 to 140 of the Finance Act, 2026 on the CBDT Act browser or in the Gazette) → Merge pull request (squash). Netlify deploys `main` automatically. Then say "sync mirror" in the desktop app (or wait for the weekly sync). If the merge slips past September, ask the desktop app to re-stamp `Updated September 2026`, `dateModified` and the sitemap `lastmod` first.
