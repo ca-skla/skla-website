@@ -392,3 +392,21 @@ Every article ← linked from insights.html card + at least one sibling.
 *All figures, rates, thresholds, form names and dates in these briefs are starting points and
 must be verified against current law and confirmed by a partner before publishing. 2026
 specifically renamed several forms and changed GST thresholds — do not copy old numbers.*
+
+---
+
+## Brief 19 — The Foreign Assets of Small Taxpayers Disclosure Scheme, 2026 (reactive Update, 5 Sep 2026 run)
+Slug: `insights-foreign-assets-disclosure-scheme-2026.html` · BACKLOG Q-00
+
+- **Primary keyword:** foreign assets disclosure scheme 2026
+- **Secondary:** FAST-DS 2026, undisclosed foreign assets India, Schedule FA not disclosed, Black Money Act immunity, Form 1 declaration foreign assets, 31 December 2026 deadline
+- **Intent:** Informational / reactive · **Priority:** Time-critical (window closes 31 Dec 2026) · **Words:** 900–1,400 (Update) · **Audience:** NRI & returning residents (primary); newact (secondary tag per BACKLOG)
+- **Titles:** (1) *Foreign Assets Disclosure Scheme 2026: Who Qualifies* · (2) *FAST-DS 2026: the foreign-asset disclosure window* · (3) *Undisclosed foreign assets: the 2026 disclosure window*
+- **Meta:** The Foreign Assets of Small Taxpayers Disclosure Scheme, 2026 — who can declare, the two categories and what each costs, valuation, forms and the 31 December 2026 deadline. (≈158 ch)
+
+**Outline (Update skeleton):** lead · H2 What the Scheme is (table: category → amount payable → condition → from when) · H2 Who can use it · H2 What to do now (steps: value at 31 Mar 2026 → Form 1 → Form 2 → pay → Form 3 → Form 4) · H2 What a declaration does — and does not — do · H2 What has not changed · FAQ · References.
+**FAQ:** Who is eligible? · What does it cost? · Can an NRI declare? · What happens if I miss 31 December 2026? · How is a foreign bank account valued?
+**Internal links:** insights-nri-residential-status-rnor.html (residency tests); insights-nri-taxation-new-act.html (1961 Act vs 2025 Act periods); services.html#nri.
+**Schema:** Article + FAQPage + BreadcrumbList (no HowTo — steps are not h3-numbered).
+**Differentiation:** the two categories explained side by side with the Rules' own illustration; the bank-account "sum of deposits" rule; the payment clock; what the Scheme does not cover.
+**Sources (read 5 Sep 2026):** Finance Act 2026 ss.130, 133, 134, 139, 141, 144 (CBDT Act browser); FAST-DS Rules 2026 — Notification 114/2026, G.S.R. 732(E), 14 Aug 2026 (CBDT copy); CBDT FAQs (FAST-DS-FAQs.pdf); e-filing portal news 1 Sep 2026. Discovery only: EY, A2Z Taxcorp, TaxTMI.
