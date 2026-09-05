@@ -35,6 +35,7 @@ Everything durable the pipeline needs lives in `_pipeline/` (never served: shado
 | `_pipeline/reviews/<slug>.md`, `refresh-<yyyy-mm>.md` | review pack per PR (audit trail after merge) | both lanes |
 | `_pipeline/templates/*` | PR body skeletons, bulletin item snippet | humans |
 | `_pipeline/routines/PROMPT-*.md` | the exact prompts installed in the cloud routines | humans |
+| (cloud routines) | `skla-insight-draft` = trig_0165NmpnCaxzasc2pUxAxFFq (cron `30 1 1,15 * *`) · `skla-law-watch` = trig_01Grw53JWiw6iGpCDCssAEUx (cron `30 1 8 * *`); environment env_011111111111111111111117; model claude-fable-5-1; Gmail connector attached; manage at https://claude.ai/code/routines | created 5 Sep 2026 |
 | `_pipeline/bin/*.sh` | lint and render scripts (bash + grep + perl; Linux) | humans |
 | `_pipeline/bin/sync-mirror.ps1` | LOCAL only: repo → OneDrive mirror + zip | humans |
 | `_pipeline/reference/*` | the ICAI website-rules study | humans |
