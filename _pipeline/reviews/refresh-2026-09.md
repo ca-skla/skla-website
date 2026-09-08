@@ -90,7 +90,7 @@ RESULT: 0 fail(s), 3 warning(s) — insights-dpiit-startup-recognition.html
 edit; a human PR can re-stamp them.)
 
 ## Preview
-Deploy preview: https://deploy-preview-<PR#>--skla-associates.netlify.app — /insights.html, /insights-gst-changes-2026.html,
+Deploy preview: https://deploy-preview-2--skla-associates.netlify.app — /insights.html, /insights-gst-changes-2026.html,
 /insights-gst-registration-2026.html, /insights-subsidiary-vs-branch-vs-liaison.html, /insights-dpiit-startup-recognition.html
 
 ## Files changed
