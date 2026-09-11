@@ -655,3 +655,73 @@ body.nav-open .wa-fab {
   .wa-fab.is-in::after { animation: none; }
   .wa-fab:hover, .wa-fab:focus-visible { transform: none; }
 }
+
+/* ================= SITE MOTION =================
+   One system for the whole site: things enter once (rise + fade, staggered when they arrive together),
+   respond to intent (hover, focus, open/close), and otherwise hold still. No loops, no autoplay.
+   Reveals are auto-tagged by main-v2.js; the stagger delay --d is set there per batch. */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal { transition-delay: var(--d, 0s); }
+.reveal-d1 { --d: .08s; }
+.reveal-d2 { --d: .16s; }
+.reveal-d3 { --d: .24s; }
+.reveal-parent { opacity: 1; transform: none; transition: none; }
+
+/* Interior page heroes: breadcrumb, then title, then the standfirst, 90 ms apart. */
+.page-hero .container > *,
+.article-hero .container > * { animation: rise-in .6s cubic-bezier(.2,.6,.2,1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+.page-hero .container > :nth-child(2), .article-hero .container > :nth-child(2) { --i: 1; }
+.page-hero .container > :nth-child(3), .article-hero .container > :nth-child(3) { --i: 2; }
+.page-hero .container > :nth-child(4), .article-hero .container > :nth-child(4) { --i: 3; }
+.page-hero .container > :nth-child(5), .article-hero .container > :nth-child(5) { --i: 4; }
+
+/* Intent: cards lift, buttons lift, nav underline draws, photos lean in, icons nod. */
+.value-card:hover, .svc-card:hover, .team-card:hover, .post-card:hover { transform: translateY(-3px); }
+.btn { transition: background var(--t), border-color var(--t), color var(--t), transform var(--t), box-shadow var(--t); }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: none; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 11px; right: 11px; bottom: 2px;
+  height: 2px; background: var(--gold); border-radius: 2px;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--t);
+}
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.team-photo img { transition: transform .7s cubic-bezier(.2,.6,.2,1); }
+.team-card:hover .team-photo img { transform: scale(1.03); }
+.sector-ico { transition: transform var(--t); }
+.sector:hover .sector-ico { transform: translateY(-3px); }
+.contact-item .ci { transition: background var(--t), border-color var(--t); }
+.contact-item:hover .ci { background: var(--gold-tint); border-color: var(--gold-soft); }
+.svc-jump a, .filter-pill { transition: background var(--t), border-color var(--t), color var(--t), transform var(--t); }
+.svc-jump a:hover, .filter-pill:hover { transform: translateY(-1px); }
+
+/* Open and close: accordion and FAQ bodies unfold, then their text settles in a beat later. */
+.acc-body, .faq-a { transition: max-height .36s cubic-bezier(.2,.6,.2,1); }
+.acc-body-inner, .faq-a-inner { opacity: 0; transform: translateY(-6px); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.6,.2,1); }
+.acc-item.open .acc-body-inner, .faq-item.open .faq-a-inner { opacity: 1; transform: none; transition-delay: .08s; }
+
+/* Insights filter: cards that come back re-deal in, 40 ms apart. */
+.is-filtering .post-card:not(.hidden),
+.is-filtering .update-item:not(.hidden) { animation: rise-in .38s cubic-bezier(.2,.6,.2,1) both; animation-delay: var(--d, 0ms); }
+
+/* Mobile menu: links follow the panel in, 30 ms apart. */
+@media (max-width: 1100px) {
+  .nav-links.open a { animation: rise-in .32s cubic-bezier(.2,.6,.2,1) both; animation-delay: calc(var(--i, 0) * 30ms); }
+}
+
+/* Between pages: a short cross-fade where the browser supports cross-document view transitions. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero .container > *, .article-hero .container > *, .nav-links.open a,
+  .is-filtering .post-card, .is-filtering .update-item { animation: none; }
+  .value-card:hover, .svc-card:hover, .team-card:hover, .post-card:hover, .btn:hover,
+  .svc-jump a:hover, .filter-pill:hover, .team-card:hover .team-photo img, .sector:hover .sector-ico { transform: none; }
+  .acc-body-inner, .faq-a-inner { opacity: 1; transform: none; transition: none; }
+  .nav-links a::after { transition: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

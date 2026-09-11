@@ -20,6 +20,7 @@
       links.classList.toggle("open");
       document.body.classList.toggle("nav-open");
     });
+    links.querySelectorAll("a").forEach(function (a, i) { a.style.setProperty("--i", i); });
     links.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
         toggle.classList.remove("open");
@@ -29,12 +30,27 @@
     });
   }
 
-  // Reveal on scroll
+  // Reveal on scroll. Pages hand-tag a few blocks with .reveal; the rest of the site's furniture is
+  // tagged here so every page moves the same way. Whatever enters the viewport together is staggered
+  // (70 ms apart, at most eight steps), and a block that contains revealed children holds still itself.
+  var AUTO_REVEAL = [".section-head", ".value-card", ".svc-card", ".svc-row", ".team-card", ".sector",
+    ".post-card", ".update-item", ".feature-list > li", ".contact-item", ".form-card", ".map-embed",
+    ".acc-item", ".faq-item", ".callout", ".article-body blockquote", ".article-body table",
+    ".article-byline", ".article-refs", ".cta-band", ".chip-row", ".trust-row", ".svc-aside",
+    ".split-media", ".split > div", ".filter-pill"].join(", ");
+  document.querySelectorAll(AUTO_REVEAL).forEach(function (el) {
+    if (!el.closest(".site-header, .site-footer, .nav-links")) el.classList.add("reveal");
+  });
   var reveals = document.querySelectorAll(".reveal");
+  reveals.forEach(function (el) { if (el.querySelector(".reveal")) el.classList.add("reveal-parent"); });
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
+      var n = 0;
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty("--d", Math.min(n++, 7) * 70 + "ms");
+        e.target.classList.add("in");
+        io.unobserve(e.target);
       });
     }, { threshold: 0.12 });
     reveals.forEach(function (el) { io.observe(el); });
@@ -84,6 +100,11 @@
           var aud = card.getAttribute("data-audience") || "";
           var show = f === "all" || aud.split(" ").indexOf(f) !== -1;
           card.classList.toggle("hidden", !show);
+        });
+        document.querySelectorAll(".post-grid, .updates-list").forEach(function (g) { g.classList.add("is-filtering"); });
+        var k = 0;
+        document.querySelectorAll(".post-card:not(.hidden), .update-item:not(.hidden)").forEach(function (card) {
+          card.style.setProperty("--d", Math.min(k++, 11) * 40 + "ms");
         });
       });
     });
