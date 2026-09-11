@@ -725,3 +725,7 @@ body.nav-open .wa-fab {
   .nav-links a::after { transition: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+@media print {
+  .reveal, .page-hero .container > *, .article-hero .container > *, .acc-body-inner, .faq-a-inner { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  .wa-fab { display: none !important; }
+}

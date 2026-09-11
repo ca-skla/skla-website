@@ -54,6 +54,7 @@
       });
     }, { threshold: 0.12 });
     reveals.forEach(function (el) { io.observe(el); });
+    window.addEventListener("beforeprint", function () { reveals.forEach(function (el) { el.classList.add("in"); }); });
   } else {
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
