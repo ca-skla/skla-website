@@ -102,7 +102,6 @@
           var show = f === "all" || aud.split(" ").indexOf(f) !== -1;
           card.classList.toggle("hidden", !show);
         });
-        document.querySelectorAll(".post-grid, .updates-list").forEach(function (g) { g.classList.add("is-filtering"); });
         var k = 0;
         document.querySelectorAll(".post-card:not(.hidden), .update-item:not(.hidden)").forEach(function (card) {
           card.style.setProperty("--d", Math.min(k++, 11) * 40 + "ms");
