@@ -568,3 +568,90 @@ section { padding: 92px 0; }
 .update-item.hidden { display: none; }
 .updates-note { font-size: .88rem; margin-top: 14px; }
 @media (max-width: 760px) { .updates-list { grid-template-columns: 1fr; } }
+
+/* ================= WHATSAPP FLOATING CONTACT BUTTON =================
+   Injected site-wide by main-v2.js. A contact affordance, not a chat widget: it never opens a
+   bubble or starts a conversation (ICAI Code of Ethics Ch. 3.3.14). Navy at rest, WhatsApp green
+   only on intent (hover / focus / press); one entrance "breath", no looping motion. */
+.wa-fab {
+  --wa-size: 56px;
+  --wa-green: #25d366;
+  --wa-green-2: #1fb85a;
+  position: fixed;
+  right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  height: var(--wa-size);
+  min-width: var(--wa-size);
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 12px 28px -12px rgba(13,27,42,.5), inset 0 0 0 1px rgba(255,255,255,.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(.92);
+  transition: background var(--t), box-shadow var(--t), transform var(--t), opacity var(--t), visibility 0s linear 0s;
+}
+.wa-fab.is-in { opacity: 1; visibility: visible; transform: none; }
+.wa-fab__label {
+  font-family: var(--ff-body);
+  font-weight: 600;
+  font-size: .84rem;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  padding-left: 0;
+  overflow: hidden;
+  transition: max-width 320ms cubic-bezier(.2,.6,.2,1), padding 320ms cubic-bezier(.2,.6,.2,1), opacity 200ms ease;
+}
+.wa-fab__icon { width: var(--wa-size); height: var(--wa-size); display: grid; place-items: center; flex: none; }
+.wa-fab__icon svg { width: 28px; height: 28px; display: block; transition: transform var(--t); }
+.wa-fab:hover,
+.wa-fab:focus-visible {
+  background: var(--wa-green);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -12px rgba(37,211,102,.6), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.wa-fab:active { background: var(--wa-green-2); transform: translateY(0); }
+.wa-fab:hover .wa-fab__label,
+.wa-fab:focus-visible .wa-fab__label { max-width: 220px; opacity: 1; padding-left: 20px; }
+.wa-fab:hover .wa-fab__icon svg { transform: scale(1.08); }
+.wa-fab:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+/* One-time entrance breath: a gold hairline ring expands and fades, then nothing moves again. */
+.wa-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid var(--gold);
+  opacity: 0;
+  pointer-events: none;
+}
+.wa-fab.is-in::after { animation: wa-breath 1.4s cubic-bezier(.2,.6,.2,1) .45s 1 both; }
+@keyframes wa-breath {
+  0%   { transform: scale(1);    opacity: .9; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+/* Yields while the footer's own WhatsApp link is on screen, and while the mobile menu is open. */
+.wa-fab.is-yield,
+body.nav-open .wa-fab {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity var(--t), transform var(--t), visibility 0s linear 240ms;
+}
+@media (max-width: 760px) {
+  .wa-fab { --wa-size: 52px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .wa-fab__icon svg { width: 26px; height: 26px; }
+}
+@media (hover: none) { .wa-fab__label { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .wa-fab, .wa-fab__label, .wa-fab__icon svg { transition: none; }
+  .wa-fab.is-in::after { animation: none; }
+  .wa-fab:hover, .wa-fab:focus-visible { transform: none; }
+}
